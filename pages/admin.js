@@ -8,15 +8,17 @@ export default function Admin() {
 
   return (
     <ProvideAuth>
-      <Flex justify="center">
-        {/* <AddCar /> */}
-        <Stack>
-          <Input w="100px"></Input>
-          <Input w="100px"></Input>
-          <Input w="100px"></Input>
-          <Input w="100px"></Input>
-        </Stack>
-      </Flex>
+      <Box minH="100vh" bgGradient="linear(to-b, blue.400, blue.200)">
+        <AddCar />
+        <Flex justify="center">
+          <Stack>
+            <Input w="100px"></Input>
+            <Input w="100px"></Input>
+            <Input w="100px"></Input>
+            <Input w="100px"></Input>
+          </Stack>
+        </Flex>
+      </Box>
     </ProvideAuth>
   );
 }
