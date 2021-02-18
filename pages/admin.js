@@ -1,24 +1,67 @@
-import { Box, Flex, Input, Stack } from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import AddCar from '../components/addCar';
-import { useAuth } from '../lib/auth';
-import { ProvideAuth } from '../lib/auth';
+import AdminLogin from '../components/AdminLogin';
+import AdminDashboard from '../components/AdminDashboard';
+import { AuthProvider } from '../lib/auth';
+import { useState, useEffect } from 'react';
+import fire from '../lib/fireBase';
 
 export default function Admin() {
-  const auth = useAuth();
+  const [UserName, setUserName] = useState('');
+  const [Password, setPassword] = useState('');
+
+  function handleLogin() {
+    fire
+      .auth()
+      .signInWithEmailAndPassword(UserName, Password)
+      .then((res) => {
+        setUserName(res.user);
+
+        return res.user;
+      });
+  }
+
+  function handleLogout() {
+    fire.auth().signOut();
+  }
+
+  function authListener() {
+    fire.auth().onAuthStateChanged((UserName) => {
+      if (UserName) {
+        setUserName(UserName);
+      } else {
+        setUserName('');
+      }
+    });
+  }
+
+  useEffect(() => {
+    authListener();
+  }, []);
+
+  // console.log(UserName, Password);
 
   return (
-    <ProvideAuth>
-      <Box minH="100vh" bgGradient="linear(to-b, blue.400, blue.200)">
-        <AddCar />
-        <Flex justify="center">
-          <Stack>
-            <Input w="100px"></Input>
-            <Input w="100px"></Input>
-            <Input w="100px"></Input>
-            <Input w="100px"></Input>
-          </Stack>
-        </Flex>
-      </Box>
-    </ProvideAuth>
+    <Flex
+      minH="100vh"
+      justify="center"
+      bgGradient="linear(to-br, blue.50, gray.100)"
+    >
+      {UserName.email ? (
+        <AuthProvider>
+          <AdminDashboard
+            handleLogout={handleLogout}
+            UserName={UserName}
+            Password={Password}
+          />
+        </AuthProvider>
+      ) : (
+        <AdminLogin
+          setUserName={setUserName}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+        />
+      )}
+    </Flex>
   );
 }

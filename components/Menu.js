@@ -16,7 +16,8 @@ import {
   Image,
 } from '@chakra-ui/react';
 
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, UnlockIcon } from '@chakra-ui/icons';
+import Link from 'next/link';
 
 export default function PlacementExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,7 +26,6 @@ export default function PlacementExample() {
   return (
     <>
       <IconButton
-        // colorScheme="red"
         onClick={onOpen}
         variant="outline"
         aria-label="Search database"
@@ -59,13 +59,90 @@ export default function PlacementExample() {
                 </Heading>
               </Flex>
             </DrawerHeader>
-            <DrawerBody overflow="hidden">
-              <Text mt="10">Information</Text>
-              <Divider m="10" />
-              <Text>Finansering</Text>
-              <Divider m="10" />
-              <Text>Kontakta Oss</Text>
-              <Divider m="10" />
+            <DrawerBody position="relative" overflow="hidden">
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                mt="4"
+                cursor="pointer"
+                fontWeight="semibold"
+              >
+                <Link href="/fordon">Våra bilar</Link>
+              </Text>
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                cursor="pointer"
+                fontWeight="thin"
+              >
+                <Link href="/salj-din-bil">- Sälj din bil</Link>
+              </Text>
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                fontWeight="semibold"
+              >
+                Våra tjänster
+              </Text>
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                cursor="pointer"
+                fontWeight="thin"
+              >
+                <Link href="/finansiering">- Finansering</Link>
+              </Text>
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                cursor="pointer"
+                fontWeight="thin"
+              >
+                <Link href="/garantier">- Garantier</Link>
+              </Text>
+
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                cursor="pointer"
+                fontWeight="thin"
+              >
+                <Link href="/vardering-och-besiktning">
+                  - Värdering och besiktning
+                </Link>
+              </Text>
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                cursor="pointer"
+                fontWeight="semibold"
+              >
+                <Link href="/om-oss">Om oss</Link>
+              </Text>
+              <Divider m="4" />
+              <Text
+                transition="all .1s"
+                _hover={{ transform: 'scale(1.05)' }}
+                cursor="pointer"
+                fontWeight="semibold"
+              >
+                <Link href="/kontakt">Kontakt</Link>
+              </Text>
+              <Divider m="4" />
+              <Link href="/admin">
+                <UnlockIcon
+                  cursor="pointer"
+                  position="absolute"
+                  bottom="20px"
+                  right="20px"
+                />
+              </Link>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
